@@ -6,7 +6,6 @@ import re
 
 def filter_datum(fields, redaction, message, separator):
     """returns the log message obfuscated"""
-    pwrd = r'(?<=password=)[a-z]+'
-    date = r'(?<=date_of_birth=)\d{2}/\d{2}/\d{4}'
-    message = re.sub(pwrd, redaction, re.sub(date, redaction, message))
-    return message
+    pw = r'(?<=password=)[a-z]+'
+    dt = r'(?<=date_of_birth=)\d{2}/\d{2}/\d{4}'
+    return re.sub(pw, redaction, re.sub(dt, redaction, message))
