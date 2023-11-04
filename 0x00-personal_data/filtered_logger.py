@@ -4,7 +4,10 @@
 import re
 
 
-def filter_datum(fields: str, redaction: str, message: str, separator: str) -> str:
+def filter_datum(fields: str,
+                 redaction: str,
+                 message: str,
+                 separator: str) -> str:
     """returns the log message obfuscated"""
     pw = r'(?<=password=)[a-z]+'
     dt = r'(?<=date_of_birth=)\d{2}/\d{2}/\d{4}'
