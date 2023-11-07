@@ -24,9 +24,9 @@ class Auth():
             elif path.startswith(ex_path):
                 return False
             if ex_path[-1] == "*":
-                    if path.startswith(ex_path[:-1]):
-                        return False
-        
+                if path.startswith(ex_path[:-1]):
+                    return False
+
         return True
 
     def authorization_header(self, request=None) -> str:
@@ -35,7 +35,6 @@ class Auth():
             return None
         else:
             return request.headers.get("Authorization")
-
 
     def current_user(self, request=None) -> TypeVar('User'):
         """current_user"""
