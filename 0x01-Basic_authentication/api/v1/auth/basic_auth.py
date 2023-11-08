@@ -75,4 +75,4 @@ class BasicAuth(Auth):
         decoded = self.decode_base64_authorization_header(auth_token)
         email, passwd = self.extract_user_credentials(decoded)
         user = self.user_object_from_credentials(email, passwd)
-        return
+        return user
