@@ -32,7 +32,7 @@ def unauthorized():
     Return:
       - Abort unauthorized request
     """
-    return abort(401)
+    abort(401)
 
 
 @app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
@@ -42,4 +42,4 @@ def forbidden():
       - Abort request where the user is authenticate
         but not allowed to access to a resource
     """
-    return abort(403)
+    abort(403)
