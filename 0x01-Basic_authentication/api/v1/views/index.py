@@ -39,6 +39,7 @@ def unauthorized():
 def forbidden():
     """ GET /api/v1/forbidden
     Return:
-      - Abort request where the user is authenticate but not allowed to access to a resource
+      - Abort request where the user is authenticate
+        but not allowed to access to a resource
     """
     return abort(403)
