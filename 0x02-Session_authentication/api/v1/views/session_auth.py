@@ -2,7 +2,7 @@
 """
 Flask view that handles all routes for the Session authentication
 """
-from flask import make_response
+from flask import request, jsonify
 from api.v1.views import app_views
 from models.user import User
 import os
@@ -18,15 +18,13 @@ def auth_session():
     if password is None or password == '':
         return jsonify({"error": "password missing"}), 400
     users = User.search({"email": email})
-    if len(users) == 0:
+    if users is None or len(users) == 0:
         return jsonify({"error": "no user found for this email"}), 404
-    for user in users:
-        if user.is_valid_password(password):
-            from api.v1.app import auth
-            session_id = auth.create_session(user.id)
-            user_json = jsonify(user.to_json())
-            session_name = os.getenv("SESSION_NAME")
-            user_json.set_cookie(session_name, session_id)
-            return user_json
-        else:
-            return jsonify({"error": "wrong password"}), 401
+    if users[0].is_valid_password(password):
+        from api.v1.app import auth
+        session_id = auth.create_session(users[0].id)
+        user_json = jsonify(users[0].to_json())
+        session_name = os.getenv("SESSION_NAME")
+        user_json.set_cookie(session_name, session_id)
+        return user_json
+    return jsonify({"error": "wrong password"}), 401
