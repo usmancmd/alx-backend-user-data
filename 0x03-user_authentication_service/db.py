@@ -48,6 +48,3 @@ class DB:
                 raise NoResultFound
 
             return user
-        
-
-
