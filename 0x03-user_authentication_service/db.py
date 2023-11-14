@@ -53,7 +53,7 @@ class DB:
         """Update user"""
 
         user = self.find_user_by(id=user_id)
-        #key, value = next(iter(kwargs.items()))
+        # key, value = next(iter(kwargs.items()))
         for key, value in kwargs.items():
             if not hasattr(user, key):
                 raise ValueError
