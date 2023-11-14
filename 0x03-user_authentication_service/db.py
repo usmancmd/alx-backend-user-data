@@ -48,3 +48,12 @@ class DB:
                 raise NoResultFound
 
             return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update user"""
+        user = self.find_user_by(id=user_id)
+        key, value = next(iter(kwargs.items()))
+        user.key = value
+        self._session.commit()
+        return None
+
