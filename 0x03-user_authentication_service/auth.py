@@ -15,6 +15,11 @@ def _hash_password(password: str) -> bytes:
     return bcrypt.hashpw(password, salt)
 
 
+def _generate_uuid() -> str:
+    """Generate and return a string representation of a new UUID"""
+    return str(uuid.uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -39,7 +44,3 @@ class Auth:
                 return bcrypt.checkpw(password.encode("utf-8"), user.hashed_password)  # noqa E502
         except NoResultFound:
             return False
-
-    def _generate_uuid() -> str:
-        """Generate and return a string representation of a new UUID"""
-        return str(uuid.uuid4())
