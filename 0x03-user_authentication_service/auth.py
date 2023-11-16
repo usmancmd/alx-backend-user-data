@@ -50,9 +50,10 @@ class Auth:
         """Create session for a user and returns the session id"""
         try:
             user = self._db.find_user_by(email=email)
-            session_id = _generate_uuid()
-            self._db.update_user(int(user.id), session_id=session_id)
-            return session_id
+            if user:
+                session_id = _generate_uuid()
+                self._db.update_user(int(user.id), session_id=session_id)
+                return session_id
         except Exception:
             return None
 
@@ -63,7 +64,7 @@ class Auth:
         try:
             user = self._db.find_user_by(session_id=session_id)
             # return user
-        except NoResultFound:
+        except Exception:
             return None
 
         return user
