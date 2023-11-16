@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Flask app"""
 
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 from sqlalchemy.orm.exc import NoResultFound
 from auth import Auth
+from db import DB
 
-AUTH = Auth()
 app = Flask(__name__)
+AUTH = Auth()
+DB = DB()
 
 
 @app.route("/")
@@ -40,6 +42,17 @@ def login():
     response = jsonify({"email": f"{email}", "message": "logged in"})
     response.set_cookie("session_id", session_id)
     return response
+
+
+@app.route("/sessions", methods=["DELETE"])
+def logout():
+    """Logout user"""
+    session_id = request.cookies.get("session_id")
+    user = DB.get_user_from_session_id(session_id)
+    if user is not none:
+        AUTH.destroy_session(user.id)
+        return redirect("/")
+    abort(403)
 
 
 if __name__ == "__main__":
