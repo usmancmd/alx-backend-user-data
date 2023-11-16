@@ -92,6 +92,6 @@ class Auth:
             user = self._db.find_user_by(reset_token=reset_token)
             if user:
                 new_password_hash = _hash_password(password)
-                self._db.update_user(user.id, password_hash=new_password_hash, reset_token=reset_token)
+                self._db.update_user(user.id, password_hash=new_password_hash, reset_token=reset_token)  # noqa E502
         except NoResultFound:
             raise ValueError:
