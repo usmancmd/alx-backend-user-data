@@ -70,7 +70,7 @@ def reset_password():
     try:
         new_token = AUTH.get_reset_password_token(email)
         if new_token:
-             return jsonify({"email": "<user email>", f"{email}": f"{new_token}"})
+            return jsonify({"email": "<user email>", f"{email}": f"{new_token}"})  # noqa E502
     except ValueError:
         abort(403)
 
