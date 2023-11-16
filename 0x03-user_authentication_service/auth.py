@@ -50,13 +50,11 @@ class Auth:
         """Create session for a user and returns the session id"""
         try:
             user = self._db.find_user_by(email=email)
-        except NoResultFound:
+            session_id = _generate_uuid()
+            self._db.update_user(int(user.id), session_id=session_id)
+            return session_id
+        except Exception:
             return None
-        if user is None:
-            return None
-        session_id = _generate_uuid()
-        self._db.update_user(user.id, session_id=session_id)
-        return session_id
 
     def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         """Get user from session id"""
