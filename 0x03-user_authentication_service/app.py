@@ -84,7 +84,6 @@ def update_password():
 
     try:
         user = AUTH._db.find_user_by(email=email)
-        print(user.__table__.columns.keys())
     except NoResultFound:
         abort(403)
 
