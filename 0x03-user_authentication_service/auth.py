@@ -94,6 +94,7 @@ class Auth:
             raise ValueError
         new_password_hash = _hash_password(password)
         try:
-            self._db.update_user(user.id, password_hash=new_password_hash, reset_token=None)  # noqa E502
+            self._db.update_user(user.id, hashed_password=new_password_hash, reset_token=None)  # noqa E502
+            return None
         except Exception:
-            raise ValueError
+            raise ValueError from None
